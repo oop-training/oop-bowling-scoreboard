@@ -41,7 +41,7 @@
  
 
 ### 유스케이스
-
+### init
 #### `$ init`
 - 게임이 진행중(입력한 점수가 하나라도 있는 경우)인 경우
 
@@ -73,6 +73,7 @@ $ add Gil-dong 3 8
 예외 발생 
 
 
+### show
 #### `$ show`
 현재까지 입력된(진행된) 모든 유저의 점수 기록(점수판)을 보여준다. 
 
@@ -103,6 +104,7 @@ $ add Gil-dong 3 8
 #### `$ show <unknown command>`
 예외 발생  
 
+### add
 #### `$ add <user> <first-hit>` 
 `<user>`의 현재 Frame에 점수 추가함. 
 이 Command로 인해 현재 Frame이 종료가 되면, 자동으로 다음 Frame으로 넘어간다.
@@ -223,17 +225,17 @@ Git branch 전략등은 본인의 입맛대로 정하면 된다. (master 하나�
 
 단, 다른 사람의 원활한 코드 리뷰를 위해 [JSFuck](https://namu.wiki/w/JSFuck) 같은 난해한 프로그래밍 언어는 자제하도록 하자. 
 
-[JAVA]
+**[JAVA]**
 
 Java, Junit 5, Gradle, Lombok(Optional)
 
 Lombok 정도는 애교로 봐주자.
 
-[JavaScript]
+**[JavaScript]**
 
 Javascript, Typescript(Optional), Jest
 
-[ETC]
+**[ETC]**
 
 추가 바람.
 
