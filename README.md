@@ -1,5 +1,7 @@
 # OOP, Refactoring, TDD 연습하기
 
+![bowling](https://sc-events.s3.amazonaws.com/4250633/main.jpg)
+
 이 프로젝트는 아래 글에서 설명하는 것을 중심으로 진행한다.
 
 [효과적으로 TDD, 리팩토링, OOP를 연습하는 방법은? (medium)](https://medium.com/@codesquad_yoda/효과적으로-tdd-리팩토링-oop를-연습하는-방법은-7ecc9ddb5d45)
@@ -19,17 +21,135 @@
 그 중에서도, 여기서는 **볼링 점수판 만들기**를 구현 해 보도록 한다. 
 
 ---
+---
 
-## 볼링 점수판 명세
-아래의 명세는 반드시 구현해야 하는 것들이다.
+## 볼링 점수판 1차 명세
+여기에 작성된 명세는 모든 구현체가 **반드시** 따라야 한다.
+
 팀원들의 합의에 의해 구현 사항이 **추가**되거나 **변경**될 수 있으며, 
-이는 모든 구현체가 **반드시** 따라야 한다.
+명세가 최종 확정된 후에 발생하는 변경사항은 다음 구현 차수에 반영하도록 한다.     
 
-[추가 바람]
-1. 모든 명령은 콘솔 창을 통해 입력된다.
-2. UI는 없으며, 점수판은 콘솔 창을 통해 출력된다.
-3. 
 
+### 명세
+![score-example](https://mblogthumb-phinf.pstatic.net/20130630_30/lifesewon_1372584267266CBgk9_JPEG/%BA%BC%B8%B5%C1%A1%BC%F6_%282%29.jpg?type=w2)
+
+[추가 바람 - 최종 명세 확정 후에 1차 구현 진행]
+- 볼링 점수판은 위와 같은 점수판을 콘솔에 표현한다.
+- 표준 볼링 룰을 따라서 점수판을 구현한다.
+- 모든 명령은 콘솔 창을 통해 입력된다.
+- UI는 없으며, 점수판은 콘솔 창을 통해 출력된다.
+ 
+
+### 유스케이스
+
+#### `$ init`
+- 게임이 진행중(입력한 점수가 하나라도 있는 경우)인 경우
+
+    `Are you sure? All changes are discarded. (Y/N)` 등의 경고문을 띄우며, 사용자의 입력에 따라 점수판 초기화 결정
+
+- 진행중이 아닌 경우 
+
+    경고문 없이 바로 초기화
+
+초기화 이후 유저 등록 과정이 진행 됨.
+```
+$ init
+----> Are you sure? All changes will be discarded. (Y/N)
+Yes
+----> Input player names, when you finished, input "@DONE"
+JaeEun
+Gil-dong
+Computer
+@DONE
+----> Now, Game Start.
+----> Frame 1.
+$ add Gil-dong 3 8
+```
+
+#### `$ init -f` 
+게임 진행 유무에 관계없이, 경고문 없이 바로 초기화
+ 
+#### `$ init <other illegal options..>`
+예외 발생 
+
+
+#### `$ show`
+현재까지 입력된(진행된) 모든 유저의 점수 기록(점수판)을 보여준다. 
+
+#### `$ show winner`
+경기가 종료되었다면, 승자가 누구인지 나타낸다.
+
+- 한 명인 경우
+    
+    예외 발생 
+
+- 두 명 이상인 경우
+
+    모든 User 이름 및 점수 표시 후 최종 승자에게 강조
+
+- 경기가 종료되지 않은 경우
+
+    예외 발생 
+
+#### `$ show <user>`
+해당 user의 점수판을 보여준다.
+
+#### `$ show <user> <frame>`
+해당 user의 해당 frame 점수를 보여준다.
+
+#### `$ show <unknown user>`
+예외 발생
+
+#### `$ show <unknown command>`
+예외 발생  
+
+#### `$ add <user> <first-hit>` 
+`<user>`의 현재 Frame에 점수 추가함. 
+이 Command로 인해 현재 Frame이 종료가 되면, 자동으로 다음 Frame으로 넘어간다.
+
+- 마지막 Frame 인 경우
+
+    [추가 바람.]
+
+- 마지막 Frame이 아닌 경우
+    
+    [추가 바람.]
+
+- `<???-hit>`의 값이 `[1-9], -, X`가 아닌 경우 
+    
+    예외 발생 
+
+#### `$ add <user> <first-hit>`
+
+
+#### `$ add <user> <first-hit> <second-hit>`
+
+#### `$ add <user> <first-hit> <second-hit>`
+
+#### `$ add <user> <first-hit> <second-hit> <third-hit>`
+
+#### `$ <unknown command>`
+예외 발생
+
+----
+
+더 추가할 수 있는 Command
+#### `$ edit`
+점수 수정
+
+#### `$ reset`
+#### `$ help`
+사용 가능한 Command 목록 
+
+#### `$ show <user> <from-frame> <to-frame>`
+특정 유저의 특정 프레임만 점수판 rendering 
+
+#### `$ sum <user> <from-frame> <to-frame>`
+점수 합 
+
+
+
+---
 ---
 
 ## 학습 방법
@@ -47,7 +167,7 @@
 4. 일주일에 하루는 정기적으로 미팅을 가진다. (추후 논의)
 5. 이 문서는 누구라도 수정이 가능하다.
 6. OOP와 TDD, Refactoring을 학습하는 것이지, 기타 Git, Build 도구 등을 학습하는 것이 아니므로 
-Branch 전략등은 본인의 입맛대로 정하면 된다. (master 하나에 다 때려박아도 무방하다) 
+Git branch 전략등은 본인의 입맛대로 정하면 된다. (master 하나에 다 때려박아도 무방하다) 
 물론 프로그램을 구현하며 추가적으로 학습하는 것은 매우 권장된다. 
 
 
@@ -68,7 +188,7 @@ Branch 전략등은 본인의 입맛대로 정하면 된다. (master 하나에 �
 
 
 
-## 객체지향 체조
+## [객체지향 체조](https://developerfarm.wordpress.com/2012/02/03/object_calisthenics_summary/)
 ### [1단계]
 규칙 1: 한 메서드에 오직 한 단계의 들여쓰기(indent)만 한다.
 
