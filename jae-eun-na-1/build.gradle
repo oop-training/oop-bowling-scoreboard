@@ -1,0 +1,10 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.6'
+}

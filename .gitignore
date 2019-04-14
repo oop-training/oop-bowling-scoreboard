@@ -35,6 +35,7 @@
 # auto-import.
 .idea/modules
 /**/*.iml
+/**/*.ipr
 # CMake
 cmake-build-*/
 
