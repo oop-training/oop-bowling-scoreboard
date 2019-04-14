@@ -33,6 +33,6 @@ class MainTest {
         final String expected = "----> Input player names, when you finished, input \"@DONE\"\n" +
                 "----> Now, Game Start.\n" +
                 "----> Frame 1.\n";
-        assertThat(out).isEqualTo(expected);
+        assertThat(out).asString().isEqualTo(expected);
     }
 }
