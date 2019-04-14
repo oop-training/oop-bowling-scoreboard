@@ -1,17 +1,18 @@
 package com.jaeeunna.command;
 
 import com.jaeeunna.ui.Input;
+import com.jaeeunna.ui.Output;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class CommandProcessor {
-    public void start(Input input) {
+    public void start(Input input, Output output) {
         while (input.hasNextCommand()) {
             final Command command = input.nextCommand();
 
             switch (command) {
                 case INIT: {
-                    System.out.println("----> Input player names, when you finished, input \"@DONE\"\n" +
+                    output.println("----> Input player names, when you finished, input \"@DONE\"\n" +
                             "----> Now, Game Start.\n" +
                             "----> Frame 1.");
 
@@ -24,11 +25,11 @@ public class CommandProcessor {
                     break;
                 }
                 case SHOW: {
-                    System.out.println("----> [ERROR] nothing to show");
+                    output.println("----> [ERROR] nothing to show");
                     break;
                 }
                 case UNKNOWN: {
-                    System.out.println("----> [ERROR] unknown command");
+                    output.println("----> [ERROR] unknown command");
                     break;
                 }
                 default: {
