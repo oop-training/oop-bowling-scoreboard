@@ -1,11 +1,37 @@
 package com.jaeeunna;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        String expected = "----> Input player names, when you finished, input \"@DONE\"\n" +
-                "----> Now, Game Start.\n" +
-                "----> Frame 1.\n";
+        Scanner sc = new Scanner(System.in);
 
-        System.out.print(expected);
+        while (sc.hasNext()) {
+            String line = sc.nextLine();
+
+            switch (line) {
+                case "init": {
+                    System.out.println("----> Input player names, when you finished, input \"@DONE\"\n" +
+                            "----> Now, Game Start.\n" +
+                            "----> Frame 1.");
+
+                    while (sc.hasNext()) {
+                        String player = sc.nextLine();
+                        if (player.equalsIgnoreCase("@DONE")) {
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case "show": {
+                    System.out.println("----> [ERROR] nothing to show");
+                    break;
+                }
+                default: {
+                    System.out.println("----> [ERROR] unknown command");
+                    break;
+                }
+            }
+        }
     }
 }
