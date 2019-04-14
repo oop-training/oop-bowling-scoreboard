@@ -12,7 +12,7 @@ import java.io.PrintStream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Program should handle")
-class MainTest {
+class BowlingScoreBoardTest {
     @Nested
     @DisplayName("init command")
     class InitCommand {
@@ -26,7 +26,7 @@ class MainTest {
                     "@DONE\n";
             final OutputStream out = mockStandardInputOutputStream(userInputLine);
 
-            Main.main(null);
+            BowlingScoreBoard.main(null);
 
             final String expected = "----> Input player names, when you finished, input \"@DONE\"\n" +
                     "----> Now, Game Start.\n" +
@@ -44,7 +44,7 @@ class MainTest {
             final String userInputLine = "show\n";
             final OutputStream out = mockStandardInputOutputStream(userInputLine);
 
-            Main.main(null);
+            BowlingScoreBoard.main(null);
 
             final String expected = "----> [ERROR] nothing to show\n";
             assertThat(out).asString().isEqualTo(expected);
@@ -57,7 +57,7 @@ class MainTest {
         final String userInputLine = "something_unknown_command\n";
         final OutputStream out = mockStandardInputOutputStream(userInputLine);
 
-        Main.main(null);
+        BowlingScoreBoard.main(null);
 
         final String expected = "----> [ERROR] unknown command\n";
         assertThat(out).asString().isEqualTo(expected);
