@@ -22,10 +22,10 @@ public class CommandProcessor {
         Scanner sc = new Scanner(in);
 
         while (sc.hasNext()) {
-            String line = sc.nextLine();
+            final Command command = Command.of(sc.nextLine());
 
-            switch (line) {
-                case "init": {
+            switch (command) {
+                case INIT: {
                     System.out.println("----> Input player names, when you finished, input \"@DONE\"\n" +
                             "----> Now, Game Start.\n" +
                             "----> Frame 1.");
@@ -38,13 +38,16 @@ public class CommandProcessor {
                     }
                     break;
                 }
-                case "show": {
+                case SHOW: {
                     System.out.println("----> [ERROR] nothing to show");
                     break;
                 }
-                default: {
+                case UNKNOWN: {
                     System.out.println("----> [ERROR] unknown command");
                     break;
+                }
+                default: {
+                    throw new RuntimeException("should not reach here");
                 }
             }
         }
