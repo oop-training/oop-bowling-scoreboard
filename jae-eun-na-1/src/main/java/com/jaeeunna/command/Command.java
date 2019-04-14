@@ -6,7 +6,7 @@ import lombok.ToString;
 public enum Command {
     INIT, SHOW, UNKNOWN;
 
-    static Command of(final String value) {
+    public static Command of(final String value) {
         try {
             return valueOf(value.trim().toUpperCase());
         } catch (IllegalArgumentException e) {

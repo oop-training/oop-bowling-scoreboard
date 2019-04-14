@@ -1,28 +1,13 @@
 package com.jaeeunna.command;
 
+import com.jaeeunna.ui.Input;
 import lombok.RequiredArgsConstructor;
-
-import java.io.InputStream;
-import java.util.Objects;
-import java.util.Scanner;
 
 @RequiredArgsConstructor
 public class CommandProcessor {
-    private final InputStream in;
-
-    public void start() {
-        if (Objects.isNull(in)) {
-            throw new IllegalStateException();
-        }
-
-        start(in);
-    }
-
-    private void start(final InputStream in) {
-        Scanner sc = new Scanner(in);
-
-        while (sc.hasNext()) {
-            final Command command = Command.of(sc.nextLine());
+    public void start(Input input) {
+        while (input.hasNextCommand()) {
+            final Command command = input.nextCommand();
 
             switch (command) {
                 case INIT: {
@@ -30,8 +15,8 @@ public class CommandProcessor {
                             "----> Now, Game Start.\n" +
                             "----> Frame 1.");
 
-                    while (sc.hasNext()) {
-                        String player = sc.nextLine();
+                    while (input.hasNextArgument()) {
+                        String player = input.nextArgument();
                         if (player.equalsIgnoreCase("@DONE")) {
                             break;
                         }
