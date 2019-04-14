@@ -38,16 +38,16 @@ class MainTest {
                     "----> Frame 1.\n";
             assertThat(out).asString().isEqualTo(expected);
         }
+    }
 
+    @Nested
+    @DisplayName("show command")
+    class ShowCommand {
         @Test
-        @DisplayName("when there is already started game")
-        void init_command_there_is_already_started_game() {
-            final String userInputLine = "init\n" +
-                    "Yes\n" +
-                    "JaeEun\n" +
-                    "Gil-dong\n" +
-                    "Computer\n" +
-                    "@DONE\n";
+        @DisplayName("when nothing to show")
+        void show_command() {
+            // given
+            final String userInputLine = "show\n";
             final OutputStream out = new ByteArrayOutputStream();
             System.setIn(new ByteArrayInputStream(userInputLine.getBytes()));
             System.setOut(new PrintStream(out));
@@ -56,11 +56,25 @@ class MainTest {
             Main.main(null);
 
             // then
-            final String expected = "----> Are you sure? All changes will be discarded. (Y/N)\n" +
-                    "----> Input player names, when you finished, input \"@DONE\"\n" +
-                    "----> Now, Game Start.\n" +
-                    "----> Frame 1.\n";
+            final String expected = "----> [ERROR] nothing to show";
             assertThat(out).asString().isEqualTo(expected);
         }
+    }
+
+    @Test
+    @DisplayName("unknown command")
+    void unknownCommand() {
+        // given
+        final String userInputLine = "something_unknown_command\n";
+        final OutputStream out = new ByteArrayOutputStream();
+        System.setIn(new ByteArrayInputStream(userInputLine.getBytes()));
+        System.setOut(new PrintStream(out));
+
+        // when
+        Main.main(null);
+
+        // then
+        final String expected = "----> [ERROR] unknown command";
+        assertThat(out).asString().isEqualTo(expected);
     }
 }
