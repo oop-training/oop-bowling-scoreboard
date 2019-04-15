@@ -1,4 +1,4 @@
 package com.jaeeunna.state;
 
-public class BowlingContext {
+public class BowlingState {
 }

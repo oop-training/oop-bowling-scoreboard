@@ -1,7 +1,7 @@
 package com.jaeeunna.command;
 
-import com.jaeeunna.state.BowlingContext;
+import com.jaeeunna.state.BowlingState;
 
 public interface CommandHandler {
-    String handle(CommandContext commandContext, BowlingContext bowlingContext);
+    String handle(CommandContext commandContext, BowlingState bowlingState);
 }
