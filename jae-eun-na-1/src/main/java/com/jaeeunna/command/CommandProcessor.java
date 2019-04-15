@@ -7,6 +7,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommandProcessor {
     public void start(Input input, Output output) {
+
+        // TODO: while 제거하기.
+        // CommandProcessor 의 하는 일은 다음과 같다.
+        // 1. CommandContextParser에게 CommandContext 생성 요청
+        // 2. 알맞은 CommandHandler를 호출(CommandContext, BowlingState)
+        // 3. handler 결과를 Ouput에게 전달
+        // 인데, 하나의 커맨드 명령에 대해서 이렇게 해야한다.
+        // 따라서 각 라인을 도는 while문은 외부로 빠져야한다.
+
+        // 그런데 handler는 어디에서 생성되어야 하는가? Command enum 안에 박아놓으면 안되나?
         while (input.hasNextCommand()) {
 
             // TODO: CommandResolver 추가하기
