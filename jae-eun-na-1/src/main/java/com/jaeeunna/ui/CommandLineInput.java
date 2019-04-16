@@ -3,10 +3,21 @@ package com.jaeeunna.ui;
 import com.jaeeunna.command.Command;
 
 
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class CommandLineInput implements Input {
-    private final Scanner sc = new Scanner(System.in);
+    private Scanner sc;
+
+    private CommandLineInput() {
+    }
+
+    public static Input of(final InputStream inputStream) {
+        final CommandLineInput instance = new CommandLineInput();
+        instance.sc = new Scanner(inputStream);
+
+        return instance;
+    }
 
     @Override
     public Command nextCommand() {

@@ -7,6 +7,6 @@ import com.jaeeunna.ui.CommandLineOutput;
 public class BowlingScoreBoard {
     public static void main(String[] args) {
         new CommandProcessor()
-                .start(new CommandLineInput(), new CommandLineOutput());
+                .start(CommandLineInput.of(System.in), new CommandLineOutput());
     }
 }
